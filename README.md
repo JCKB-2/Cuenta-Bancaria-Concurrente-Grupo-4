@@ -32,7 +32,7 @@ concurrente, correcto y medible usando **threading**, **multiprocessing** y
 | `auditoria.py`       | Auditoría CPU-bound: secuencial, `ThreadPoolExecutor` y `ProcessPoolExecutor`, speedup con 1, 2, 4 y N núcleos                                                 |   3   |
 | `servicios_async.py` | Notificaciones y antifraude con `asyncio.gather`, `Semaphore(20)`, corrección con `asyncio.to_thread` y manejo de fallos                                       |   4   |
 | `main.py`            | Jornada simulada integrada con los parámetros del grupo                                                                                                        |   5   |
-| `test_banco.py`      | Pruebas de estrés e invariantes (`unittest`)                                                                                                                   |   QA  |
+| `test_banco.py`      | Pruebas de estrés e invariantes (`unittest`)                                                                                                                   |  QA   |
 | `banco_base.py`      | Código base original (inseguro a propósito), sin modificar                                                                                                     |   –   |
 
 ## Ejecución
@@ -53,7 +53,7 @@ python -m unittest test_banco -v
 ## Decisiones de arquitectura (medidas)
 
 | Componente                   | Modelo                                         | Por qué (datos)                                                                                                                        |
-|------------------------------|------------------------------------------------|-----------------------------------------------------------------     ----------------------------------------------------------------- |
+|------------------------------|------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------- |
 | Depósitos/retiros de cajeros | Hilos + `threading.Lock` por cuenta            | E/O breve + estado compartido; con 120 hilos × 1.000 depósitos el saldo siempre es 120.000 (sin Lock se pierden ~117000)               |
 | Transferencias entre cuentas | Hilos + orden de candados por número de cuenta | Evita el deadlock de A↔B y mantiene la invariante: la suma total no cambia en 3.000 transferencias                                     |
 | Auditoría nocturna           | `ProcessPoolExecutor`                          | CPU-bound; los hilos no aceleran por el GIL (~1,0x). Los procesos se acercan al speedup ideal según Amdahl                             |
@@ -70,10 +70,10 @@ python -m unittest test_banco -v
 
 ## Integrantes y roles (Grupo 4)
 
-| Rol | Integrante |
-
-Líder técnico / integrador (Juan Kammerer)
-Especialista en hilos (Fases 1 y 2) (Andrea Paz)
-Especialista en procesos (Fase 3) (Janny Vergara)
-Especialista en asyncio (Fase 4) (Ivanna Pinto)
-Analista de calidad (QA) (Said Fandiño)
+| Rol                      |Fases                 | Integrante           | 
+|--------------------------|----------------------|----------------------|
+|Líder técnico / integrador|          1           | Juan Kammerer        |
+|Especialista en hilos     |        1 y 2         | Andrea Paz           |
+|Especialista en procesos  |          3           | Janny Vergara        |
+|Especialista en asyncio   |          4           | Ivanna Pinto         |
+|Analista de calidad       |          QA          | Said Fandiño         |
