@@ -153,11 +153,6 @@ def main() -> None:
 
     print("\n" + "=" * 72)
     print(f"Jornada completa: {time.perf_counter() - inicio_total:.2f}s")
-    print(
-        "Decisión de arquitectura: hilos para E/O-bound con estado compartido "
-        "(cuentas), procesos para la auditoría CPU-bound y asyncio para los "
-        "servicios externos de red."
-    )
 
 
 if __name__ == "__main__":
